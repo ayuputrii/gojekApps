@@ -63,7 +63,11 @@ const SetDestination = props => {
             <View style={style.firstContent}>
               <Text style={style.fontSize}>Set destination location</Text>
               <TouchableHighlight>
-                <Text style={style.touchEdit}>Edit</Text>
+                <Text
+                  style={style.touchEdit}
+                  onPress={() => props.navigation.navigate('SearchLocation')}>
+                  Edit
+                </Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -76,7 +80,8 @@ const SetDestination = props => {
               <Text style={style.textAddress}>{destinationLocationDetail}</Text>
             </View>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('ConfirmOrder')}>
             <Text style={style.buttonPickup}>Set destination location</Text>
           </TouchableOpacity>
         </View>

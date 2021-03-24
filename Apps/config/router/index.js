@@ -4,9 +4,11 @@ import {
   Home,
   SearchLocation,
   SearchDestination,
-  Payment,
   SetDestination,
   SetOriginPickup,
+  ConfirmOrder,
+  Booking,
+  Payment,
 } from '../../screens';
 
 const RouterNavigation = createStackNavigator(
@@ -20,14 +22,20 @@ const RouterNavigation = createStackNavigator(
     SearchDestination: {
       screen: SearchDestination,
     },
-    Payment: {
-      screen: Payment,
-    },
     SetDestination: {
       screen: SetDestination,
     },
     SetOriginPickup: {
       screen: SetOriginPickup,
+    },
+    ConfirmOrder: {
+      screen: ConfirmOrder,
+    },
+    Booking: {
+      screen: Booking,
+    },
+    Payment: {
+      screen: Payment,
     },
   },
   {

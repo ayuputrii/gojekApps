@@ -68,7 +68,11 @@ const SetOriginPickup = props => {
               <View style={style.firstContent}>
                 <Text style={style.fontSize}>Set pickup location</Text>
                 <TouchableHighlight>
-                  <Text style={style.touchEdit}>Edit</Text>
+                  <Text
+                    style={style.touchEdit}
+                    onPress={() => props.navigation.navigate('SearchLocation')}>
+                    Edit
+                  </Text>
                 </TouchableHighlight>
               </View>
             </View>
@@ -92,7 +96,11 @@ const SetOriginPickup = props => {
               </View>
             </View>
             <TouchableOpacity>
-              <Text style={style.buttonPickup}>Set pickup</Text>
+              <Text
+                style={style.buttonPickup}
+                onPress={() => props.navigation.navigate('ConfirmOrder')}>
+                Set pickup
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
