@@ -32,7 +32,7 @@ const SetDestination = props => {
     dispatch(
       searchLocation({
         region,
-      }),
+      })
     );
   };
 
@@ -78,7 +78,7 @@ const SetDestination = props => {
             <Destination style={style.imgArrow} />
             <View style={style.titleDestination}>
               <Text style={style.textStreet}>
-                {destinationLocation || 'Lokasi tidak ditemukan...'}
+                {destinationLocation || 'Unamed Road'}
               </Text>
               <Text style={style.textAddress}>{destinationLocationDetail}</Text>
             </View>

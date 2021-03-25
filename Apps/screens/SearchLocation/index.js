@@ -36,11 +36,23 @@ const SearchLocation = props => {
     state => state.search,
   );
   useEffect(() => {
-    pickupInput?.current.setAddressText(pickupLocationDetail);
-    if (props.navigation.isFocused()) {
+    if (pickupLocationDetail) {
+      pickupInput?.current.setAddressText(pickupLocationDetail);
       destinationInput?.current.focus();
     }
-  }, [pickupLocationDetail])
+  }, [pickupLocationDetail]);
+
+  useEffect(() => {
+    if (props.navigation.isFocused()) {
+      destinationInput?.current.setAddressText(destinationLocationDetail);
+    }
+  }, [destinationLocationDetail]);
+
+  const onEndEditing = () => {
+    if (props.navigation.isFocused()) {
+      props.navigation.navigate('ConfirmOrder');
+    }
+  }
 
   const setLocation = async (data, pickup) => {
     try {
@@ -137,7 +149,9 @@ const SearchLocation = props => {
                   placeholder: 'Your current location',
                   placeholderTextColor: 'gray',
                   errorStyle: {color: 'red'},
+                  defaultValue: destinationLocationDetail,
                   onFocus: () => setFocusType('destination'),
+                  onEndEditing: () => onEndEditing()
                 }}
                 styles={{
                   container: {

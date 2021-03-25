@@ -55,6 +55,7 @@ export default {
   TextInput: {
     color: '#00000d',
     marginLeft: 12,
+    width: '70%',
   },
   contentViewSearch: {
     borderBottomWidth: 1,

@@ -1,5 +1,5 @@
-import React from 'react';
-import MapView from 'react-native-maps';
+import React, {useRef, useEffect} from 'react';
+import MapView, {Marker} from 'react-native-maps';
 import {
   SafeAreaView,
   StatusBar,
@@ -14,8 +14,6 @@ import {
 import style from './style';
 import {StatusColor} from '../../components';
 import Arrowright from '../../assets/svg/arrowright.svg';
-import {searchLocation} from '../../config/redux/action/search';
-import {useDispatch} from 'react-redux';
 import Goride from '../../assets/img/goride.jpg';
 import Gocar from '../../assets/svg/order-gocar.svg';
 import Arrowleft from '../../assets/svg/Arrowleft.svg';
@@ -23,17 +21,50 @@ import Linkaja from '../../assets/img/linkAja.png';
 import Notes from '../../assets/svg/notes.svg';
 import Arrowup from '../../assets/svg/arrowup.svg';
 import Destination from '../../assets/svg/destination.svg';
+import {useSelector} from 'react-redux';
 
 const ConfirmOrder = props => {
-  const dispatch = useDispatch();
+  const mapRef = useRef(null);
   const DEVICE_WIDTH = Dimensions.get('window').width;
   const DEVICE_HEIGHT = Dimensions.get('window').height;
+  const {
+    pickupLocation,
+    pickupLocationDetail,
+    pickupLocationLatitude,
+    pickupLocationLongitude,
+    destinationLocation,
+    destinationLocationDetail,
+    destinationLocationLatitude,
+    destinationLocationLongitude,
+  } = useSelector(state => state.search);
 
-  const onRegionChange = region => {
-    dispatch(
-      searchLocation({
-        region,
-      }),
+  useEffect(() => {
+    if (props.navigation.isFocused()) {
+      animateCamera();
+    }
+  });
+
+  const animateCamera = () => {
+    mapRef.current.fitToCoordinates(
+      [
+        {
+          latitude: pickupLocationLatitude,
+          longitude: pickupLocationLongitude,
+        },
+        {
+          latitude: destinationLocationLatitude,
+          longitude: destinationLocationLongitude,
+        },
+      ],
+      {
+        edgePadding: {
+          top: 350,
+          right: 40,
+          bottom: 750,
+          left: 40,
+        },
+        animated: true,
+      },
     );
   };
 
@@ -42,15 +73,35 @@ const ConfirmOrder = props => {
       <StatusBar backgroundColor={StatusColor.white} />
       <View>
         <MapView
+          ref={mapRef}
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: pickupLocationLatitude,
+            longitude: pickupLocationLongitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-          onRegionChangeComplete={onRegionChange}
-          style={{width: DEVICE_WIDTH, height: DEVICE_HEIGHT}}
-        />
+          style={{width: DEVICE_WIDTH, height: DEVICE_HEIGHT}}>
+          {Boolean(pickupLocation) && (
+            <Marker
+              coordinate={{
+                latitude: pickupLocationLatitude,
+                longitude: pickupLocationLongitude,
+              }}
+              title="Lokasi Pickup">
+              <Arrowup style={style.imgArrow} />
+            </Marker>
+          )}
+          {Boolean(destinationLocation) && (
+            <Marker
+              coordinate={{
+                latitude: destinationLocationLatitude,
+                longitude: destinationLocationLongitude,
+              }}
+              title="Lokasi Tujuan">
+              <Destination style={style.imgArrow} />
+            </Marker>
+          )}
+        </MapView>
         <View style={style.body}>
           <TouchableOpacity>
             <Arrowright
@@ -67,6 +118,7 @@ const ConfirmOrder = props => {
                   style={style.TextInput}
                   placeholder="Your current location"
                   placeholderTextColor="gray"
+                  value={pickupLocationDetail}
                 />
               </View>
               <TouchableHighlight>
@@ -84,6 +136,7 @@ const ConfirmOrder = props => {
                 style={style.TextInput}
                 placeholder="Select for destination"
                 placeholderTextColor="gray"
+                value={destinationLocationDetail}
               />
             </View>
           </View>

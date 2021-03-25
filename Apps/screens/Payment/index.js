@@ -11,6 +11,7 @@ import style from './style';
 import {StatusColor} from '../../components';
 import Goride from '../../assets/icon/go-ride.png';
 import Linkaja from '../../assets/img/linkAja.png';
+import {Rating} from 'react-native-ratings';
 
 const Payment = () => {
   return (
@@ -31,33 +32,24 @@ const Payment = () => {
             <Text style={style.pay}>Rp15.000</Text>
           </View>
         </View>
-        <View
-          style={style.contentIncome}>
-          <View
-            style={style.flexJustify}>
+        <View style={style.contentIncome}>
+          <View style={style.flexJustify}>
             <Text style={style.titleSame}>Pendapatan</Text>
-            <Text
-              style={style.titleSameOne}>
-              Rp12.000
-            </Text>
+            <Text style={style.titleSameOne}>Rp12.000</Text>
           </View>
-          <View
-            style={style.flexJustify}>
+          <View style={style.flexJustify}>
             <Text style={style.titleSame}>Poin</Text>
-            <Text
-              style={style.titleSameOne}>
-              +1
-            </Text>
+            <Text style={style.titleSameOne}>+1</Text>
           </View>
         </View>
-        <View
-          style={style.contentCustomer}>
+        <View style={style.contentCustomer}>
           <Text style={style.textBooking}>GR120389109238</Text>
           <View style={style.contentBooking}>
-            <Text style={style.customer}>
-              Bagaimana costumer Anda?
-            </Text>
+            <Text style={style.customer}>Bagaimana costumer Anda?</Text>
           </View>
+          <Rating
+            style={{paddingVertical: 10}}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
