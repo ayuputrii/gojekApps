@@ -24,11 +24,15 @@ const SetOriginPickup = props => {
   const dispatch = useDispatch();
   const DEVICE_WIDTH = Dimensions.get('window').width;
   const DEVICE_HEIGHT = Dimensions.get('window').height;
-  const {pickupLocation, pickupLocationDetail} = useSelector(
-    state => state.search,
-  );
+  const {
+    pickupLocation,
+    pickupLocationDetail,
+    pickupLocationLatitude,
+    pickupLocationLongitude,
+  } = useSelector(state => state.search);
 
   const onRegionChange = region => {
+    console.log(region);
     dispatch(
       searchLocation({
         region,
@@ -44,8 +48,8 @@ const SetOriginPickup = props => {
         <View style={{position: 'relative'}}>
           <MapView
             initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
+              latitude: pickupLocationLatitude || 37.78825,
+              longitude: pickupLocationLongitude || -122.4324,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
@@ -58,7 +62,7 @@ const SetOriginPickup = props => {
           <View style={style.body}>
             <TouchableOpacity>
               <Arrowright
-                onPress={() => props.navigation.navigate('SearchDestination')}
+                onPress={() => props.navigation.navigate('SearchLocation')}
               />
             </TouchableOpacity>
             <Earth />
@@ -80,7 +84,7 @@ const SetOriginPickup = props => {
               <Arrowup style={style.imgArrow} />
               <View style={style.titleDestination}>
                 <Text style={style.textStreet}>
-                  {pickupLocation || 'Lokasi tidak ditemukan...'}
+                  {pickupLocation || 'Unamed road'}
                 </Text>
                 <Text style={style.textAddress}>{pickupLocationDetail}</Text>
               </View>
@@ -98,7 +102,7 @@ const SetOriginPickup = props => {
             <TouchableOpacity>
               <Text
                 style={style.buttonPickup}
-                onPress={() => props.navigation.navigate('ConfirmOrder')}>
+                onPress={() => props.navigation.navigate('SearchLocation')}>
                 Set pickup
               </Text>
             </TouchableOpacity>

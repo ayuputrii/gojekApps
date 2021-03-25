@@ -57,7 +57,6 @@ export default {
   },
   contentDestination: {
     borderBottomWidth: 3,
-    marginHorizontal: 10,
     borderColor: '#e1e3e1',
   },
   contentKm: {

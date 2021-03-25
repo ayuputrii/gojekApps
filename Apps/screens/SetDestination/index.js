@@ -21,9 +21,12 @@ const SetDestination = props => {
   const dispatch = useDispatch();
   const DEVICE_WIDTH = Dimensions.get('window').width;
   const DEVICE_HEIGHT = Dimensions.get('window').height;
-  const {destinationLocation, destinationLocationDetail} = useSelector(
-    state => state.search,
-  );
+  const {
+    destinationLocation,
+    destinationLocationDetail,
+    destinationLocationLatitude,
+    destinationLocationLongitude,
+  } = useSelector(state => state.search);
 
   const onRegionChange = region => {
     dispatch(
@@ -39,8 +42,8 @@ const SetDestination = props => {
       <View style={{position: 'relative'}}>
         <MapView
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: destinationLocationLatitude || 37.78825,
+            longitude: destinationLocationLongitude || -122.4324,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
@@ -53,7 +56,7 @@ const SetDestination = props => {
         <View style={style.body}>
           <TouchableOpacity>
             <Arrowright
-              onPress={() => props.navigation.navigate('SearchDestination')}
+              onPress={() => props.navigation.navigate('SearchLocation')}
             />
           </TouchableOpacity>
           <Earth />

@@ -28,6 +28,52 @@ export default {
     alignItems: 'center',
     padding: 12,
   },
+  content1: {
+    width: DEVICE_WIDTH,
+    position: 'absolute',
+  },
+  contentSearchPickup: {
+    marginTop: 30,
+    marginHorizontal: 15,
+    borderWidth: 1,
+    borderColor: '#fafafa',
+    borderRadius: 20,
+    backgroundColor: '#fff',
+    elevation: 30,
+  },
+  flexPadding: {
+    flexDirection: 'row',
+    paddingLeft: 14,
+  },
+  flexSpace: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  imgTop: {
+    marginTop: 14,
+  },
+  TextInput: {
+    color: '#00000d',
+    marginLeft: 12,
+  },
+  contentViewSearch: {
+    borderBottomWidth: 1,
+    marginHorizontal: 70,
+    marginLeft: 50,
+    borderColor: '#e1e3e1',
+  },
+  touchEdit: {
+    fontSize: 18,
+    borderRadius: 30,
+    borderWidth: 1.5,
+    borderColor: 'green',
+    color: 'green',
+    width: 50,
+    textAlign: 'center',
+    top: 35,
+    right: 10,
+    justifyContent: 'space-between',
+  },
   backgroundContent: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,

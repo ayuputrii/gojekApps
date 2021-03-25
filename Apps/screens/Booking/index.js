@@ -7,7 +7,9 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  TouchableHighlight,
   Dimensions,
+  TextInput,
 } from 'react-native';
 import style from './style';
 import {StatusColor} from '../../components';
@@ -56,6 +58,36 @@ const SetDestination = props => {
           </TouchableOpacity>
           <Earth />
         </View>
+        <View style={style.content1}>
+          <View style={style.contentSearchPickup}>
+            <View style={style.flexSpace}>
+              <View style={style.flexPadding}>
+                <Arrowup width={20} height={20} style={style.imgTop} />
+                <TextInput
+                  style={style.TextInput}
+                  placeholder="Your current location"
+                  placeholderTextColor="gray"
+                />
+              </View>
+              <TouchableHighlight>
+                <Text
+                  style={style.touchEdit}
+                  onPress={() => props.navigation.navigate('SearchLocation')}>
+                  Edit
+                </Text>
+              </TouchableHighlight>
+            </View>
+            <View style={style.contentViewSearch} />
+            <View style={style.flexPadding}>
+              <Destination width={20} height={20} style={style.imgTop} />
+              <TextInput
+                style={style.TextInput}
+                placeholder="Select for destination"
+                placeholderTextColor="gray"
+              />
+            </View>
+          </View>
+        </View>
         <View style={style.backgroundContent}>
           <View style={style.contentBack}>
             <Arrowup style={style.imageArrow} width={30} height={30} />
@@ -81,12 +113,8 @@ const SetDestination = props => {
             <View style={style.viewButton}>
               <IconPhone width={40} height={40} />
               <TouchableOpacity
-                onPress={() => props.navigation.navigate('ConfirmOrder')}>
-                <Text
-                  style={style.buttonPickup}
-                  onPress={() => props.navigation.navigate('Payment')}>
-                  Perjalanan Selesai
-                </Text>
+                onPress={() => props.navigation.navigate('Payment')}>
+                <Text style={style.buttonPickup}>Perjalanan Selesai</Text>
               </TouchableOpacity>
             </View>
           </View>

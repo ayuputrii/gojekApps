@@ -7,7 +7,9 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
+  TextInput,
   Image,
+  TouchableHighlight,
 } from 'react-native';
 import style from './style';
 import {StatusColor} from '../../components';
@@ -19,6 +21,8 @@ import Gocar from '../../assets/svg/order-gocar.svg';
 import Arrowleft from '../../assets/svg/Arrowleft.svg';
 import Linkaja from '../../assets/img/linkAja.png';
 import Notes from '../../assets/svg/notes.svg';
+import Arrowup from '../../assets/svg/arrowup.svg';
+import Destination from '../../assets/svg/destination.svg';
 
 const ConfirmOrder = props => {
   const dispatch = useDispatch();
@@ -50,9 +54,39 @@ const ConfirmOrder = props => {
         <View style={style.body}>
           <TouchableOpacity>
             <Arrowright
-              onPress={() => props.navigation.navigate('SearchDestination')}
+              onPress={() => props.navigation.navigate('SearchLocation')}
             />
           </TouchableOpacity>
+        </View>
+        <View style={style.content1}>
+          <View style={style.contentSearchPickup}>
+            <View style={style.flexSpace}>
+              <View style={style.flexPadding}>
+                <Arrowup width={20} height={20} style={style.imgTop} />
+                <TextInput
+                  style={style.TextInput}
+                  placeholder="Your current location"
+                  placeholderTextColor="gray"
+                />
+              </View>
+              <TouchableHighlight>
+                <Text
+                  style={style.touchEdit}
+                  onPress={() => props.navigation.navigate('SearchLocation')}>
+                  Edit
+                </Text>
+              </TouchableHighlight>
+            </View>
+            <View style={style.contentViewSearch} />
+            <View style={style.flexPadding}>
+              <Destination width={20} height={20} style={style.imgTop} />
+              <TextInput
+                style={style.TextInput}
+                placeholder="Select for destination"
+                placeholderTextColor="gray"
+              />
+            </View>
+          </View>
         </View>
         <View style={style.content}>
           <View style={style.contentDestination}>
@@ -98,10 +132,9 @@ const ConfirmOrder = props => {
               <Text style={style.textTry}>Try</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <View
-              style={style.buttonPickup}
-              onPress={() => props.navigation.navigate('Booking')}>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('Booking')}>
+            <View style={style.buttonPickup}>
               <Text style={style.textOrder}>Order GoRide</Text>
               <View style={style.flexRow}>
                 <Text style={style.textOrder}>Rp18.000</Text>

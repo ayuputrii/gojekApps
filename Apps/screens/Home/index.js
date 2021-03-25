@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -7,6 +7,7 @@ import {
   TextInput,
   View,
   Image,
+  PermissionsAndroid,
 } from 'react-native';
 import style from './style';
 import {MenuHome, FiturHome, StatusColor} from '../../components';
@@ -17,8 +18,55 @@ import Gopay from '../../assets/svg/gopay.svg';
 import IconSearch from '../../assets/icon/search.png';
 import IconUser from '../../assets/svg/user.svg';
 import iklanGpay from '../../assets/img/iklan-gopay.jpg';
+import {searchLocation} from '../../config/redux/action/search';
+import Geolocation from 'react-native-geolocation-service';
+import {useDispatch} from 'react-redux';
 
 const Home = props => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    requestGPSPermission();
+  }, []);
+
+  const requestGPSPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Aktifkan GPS',
+          message: `GPS aktif dibutuhkan untuk mendapatkan lokasi terkini`,
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        Geolocation.getCurrentPosition(
+          position => {
+            console.log('position', position)
+            dispatch(
+              searchLocation({
+                region: {
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude,
+                },
+                pickup: true,
+              }),
+            );
+          },
+          error => {
+            console.log(error.code, error.message);
+          },
+          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+        );
+      } else {
+        console.log('Camera permission denied');
+      }
+    } catch (err) {
+      requestGPSPermission();
+    }
+  };
+
   return (
     <SafeAreaView style={style.containerHome}>
       <StatusBar backgroundColor={StatusColor.green} />
@@ -85,7 +133,7 @@ const Home = props => {
         </View>
       </ScrollView>
       <FiturHome navigation={props.navigation} />
-    </SafeAreaView>
+    </SafeAreaView>                   
   );
 };
 

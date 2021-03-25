@@ -10,26 +10,27 @@ export const searchLocation = payload => async dispatch => {
       latitude: payload.region.latitude,
       longitude: payload.region.longitude,
     });
+    console.log('res', res);
     if (res.results) {
+      const data = {
+        latitude: payload.region.latitude,
+        longitude: payload.region.longitude,
+        location: res.results[0]?.address_components.filter(r => r?.types.join('') === 'route')[0]?.short_name || '',
+        locationDetail: res.results[0]?.formatted_address || '',
+      };
       if (payload.pickup) {
         dispatch({
           type: SET_PICKUP_SUCCESS,
-          payload: {
-            location: res.results[0]?.address_components[0]?.short_name || '',
-            locationDetail: res.results[0]?.formatted_address || '',
-          },
+          payload: data,
         });
       } else {
         dispatch({
           type: SET_DESTINATION_SUCCESS,
-          payload: {
-            location: res.results[0]?.address_components[0]?.short_name || '',
-            locationDetail: res.results[0]?.formatted_address || '',
-          },
+          payload: data,
         });
       }
     }
   } catch (error) {
-    console.log(error);
+    console.log('lor',error);
   }
 };
