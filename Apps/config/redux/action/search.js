@@ -10,7 +10,6 @@ export const searchLocation = payload => async dispatch => {
       latitude: payload.region.latitude,
       longitude: payload.region.longitude,
     });
-    console.log('res', res);
     if (res.results) {
       const data = {
         latitude: payload.region.latitude,

@@ -32,7 +32,6 @@ const SetOriginPickup = props => {
   } = useSelector(state => state.search);
 
   const onRegionChange = region => {
-    console.log(region);
     dispatch(
       searchLocation({
         region,

@@ -35,7 +35,6 @@ const SearchLocation = props => {
   const {pickupLocationDetail, destinationLocationDetail} = useSelector(
     state => state.search,
   );
-    console.log('props', props)
   useEffect(() => {
     pickupInput?.current.setAddressText(pickupLocationDetail);
     if (props.navigation.isFocused()) {
